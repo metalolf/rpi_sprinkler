@@ -195,13 +195,15 @@ def test_api():
     print "Unable to access API"
     print "Request info: "
     print r.text
-    return
+    #return
   
   total = get_precip_in_window(load_config())
   if total is None:
     print "API works but unable to get history.  Did you sign up for the right plan?"
-    return
+    #return
+  else:
   print "WU API seems to be working with past 24 hour rainfall=%f" % (total)  
+
   rainfall_ow = get_forecast_for_next_12h(config)
   print "OpenWeather api forecast for next 12h: ", rainfall_ow
 
