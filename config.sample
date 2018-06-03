@@ -7,11 +7,21 @@
 api_key = 
 
 ####
+## Provide API key for openweathermap.org (alternate forecast)
+# here: https://home.openweathermap.org/api_keys
+api_key_ow = 
+
+####
 ## Town and state where sprinkler is being run.  Cities 
 # with two or more words should use underscores for spaces, 
 # e.g. New_York
 town = Boston
 state = MA
+
+####
+## GEO coords of your location - for openweathermap (format eg 51.53)
+lat = 
+lon = 
 
 ####
 ## How long in minutes to run the sprinkler at a time

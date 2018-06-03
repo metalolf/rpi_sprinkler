@@ -41,6 +41,26 @@ def get_precip_today_in(config):
       rainfall = None
   return rainfall, r
 
+def get_forecast_for_next_12h(config):
+  # API_URL = 'http://api.wunderground.com/api/{key}/conditions/q/{state}/{town}.json'
+  API_URL = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&lang=pl&APPID={key_ow}'
+  r = requests.get(API_URL.format(key_ow=config['api_key_ow'],
+                                  lat=config['lat'],
+                                  lon=config['lon']))
+  #rainfall = None
+  rainfall = 0
+  if r.ok:
+    print 'r.ok'
+    for x in range(0, 3):
+      try:
+        rainfall += float(r.json()['list'][x]['rain']['3h'])
+      except Exception as ex:
+        # do nothing = no rain in next 3h
+        print 'No rain in next ', 3*x
+    print rainfall
+  return rainfall
+
+
 # Given the response of the WU API, puts hourly rainfall data into two 
 # lists - one containing time in seconds ago from now,
 # and the other containing rainfall in inches/second
@@ -181,8 +201,10 @@ def test_api():
   if total is None:
     print "API works but unable to get history.  Did you sign up for the right plan?"
     return
-  print "API seems to be working with past 24 hour rainfall=%f" % (total)  
-    
+  print "WU API seems to be working with past 24 hour rainfall=%f" % (total)  
+  rainfall_ow = get_forecast_for_next_12h(config)
+  print "OpenWeather api forecast for next 12h: ", rainfall_ow
+
 # Runs without checking rainfall
 def force_run():
   config = load_config()
