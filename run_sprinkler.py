@@ -202,7 +202,7 @@ def test_api():
     print "API works but unable to get history.  Did you sign up for the right plan?"
     #return
   else:
-  print "WU API seems to be working with past 24 hour rainfall=%f" % (total)  
+    print "WU API seems to be working with past 24 hour rainfall=%f" % (total)  
 
   rainfall_ow = get_forecast_for_next_12h(config)
   print "OpenWeather api forecast for next 12h: ", rainfall_ow
