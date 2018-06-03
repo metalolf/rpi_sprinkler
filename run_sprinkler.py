@@ -29,10 +29,14 @@ def get_precip_today_in(config):
   r = requests.get(API_URL.format(key=config['api_key'],
                                   state=config['state'],
                                   town=config['town']))
+  print 'ustawiam rainfall na None'
   rainfall = None
   if r.ok:
-    try:  
+    print 'r.ok'
+    try:
+      print 'try r.json current_obsercation -- precip_today_in'
       rainfall = float(r.json()['current_observation']['precip_today_in'])
+      print rainfall
     except Exception as ex:
       rainfall = None
   return rainfall, r
