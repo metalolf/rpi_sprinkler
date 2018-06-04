@@ -177,14 +177,18 @@ def main():
   with open(config['log_file'],'a') as log_file:
     # Get past 24 hour precip
     rainfall = get_precip_in_window(config)
+    rainfall_ow = get_forecast_for_next_12h(config)
     if rainfall is None:
       log_file.write('%s: Error getting rainfall amount, setting to 0.0 in\n' % current_time)
       rainfall = 0.0
     else:
       log_file.write('%s: Rainfall: %f in\n' % (now(), rainfall))
+    log_file.write('%s: OpenWeather api forecast for next 12h: %f' % (now(), rainfall_ow))
     
   # If this is less than RAIN_THRESHOLD_IN run sprinkler
-  if rainfall <= float(config['rain_threshold_in']):
+  tr = float(config['rain_threshold_in'])
+  r_ow_in = rainfall_ow/2.54
+  if (rainfall <= tr or  r_ow_in <= tr):
     run_sprinkler(config)
 
 # Test API access
