@@ -183,7 +183,7 @@ def main():
       rainfall = 0.0
     else:
       log_file.write('%s: Rainfall: %f in\n' % (now(), rainfall))
-    log_file.write('%s: OpenWeather api forecast for next 12h: %f' % (now(), rainfall_ow))
+    log_file.write('%s: OpenWeather api forecast for next 12h: %f mm\n' % (now(), rainfall_ow))
     
   # If this is less than RAIN_THRESHOLD_IN run sprinkler
   tr = float(config['rain_threshold_in'])
