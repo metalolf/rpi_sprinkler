@@ -56,7 +56,7 @@ def get_forecast_for_next_12h(config):
         rainfall += float(r.json()['list'][x]['rain']['3h'])
       except Exception as ex:
         # do nothing = no rain in next 3h
-        print 'No rain in next ', 3*x
+        print 'No rain in next ', 3*(x+1)
     print rainfall
   return rainfall
 
@@ -150,21 +150,24 @@ def run_sprinkler(config):
     try:
       GPIO.setup((pin1, led), GPIO.OUT)
       log_file.write('%s: Starting sprinkler 1\n' % now())
-      GPIO.output((pin1,led), GPIO.HIGH)
-      sleep(runtime * 60) 
+      GPIO.output(pin1, GPIO.HIGH)
+      sleep(3)
+      GPIO.output(led, GPIO.HIGH)
+      sleep(runtime * 60)
       log_file.write('%s: Stopping sprinkler 1\n' % now())
-      GPIO.output((pin1,led), GPIO.LOW)
-      
-      GPIO.setup((pin2, led), GPIO.OUT)
+      GPIO.output(pin1, GPIO.LOW)
+      GPIO.setup(pin2, GPIO.OUT)
       log_file.write('%s: Starting sprinkler 2\n' % now())
-      GPIO.output((pin2,led), GPIO.HIGH)
-      sleep(runtime * 60) 
+      GPIO.output(pin2, GPIO.HIGH)
+      sleep(runtime * 60)
       log_file.write('%s: Stopping sprinkler 2\n' % now())
-      GPIO.output((pin2,led), GPIO.LOW)
+      GPIO.output(led, GPIO.LOW)
+      sleep(5)
+      GPIO.output(pin2, GPIO.LOW)
     except Exception as ex:
       log_file.write('%s: An error has occurred: %s \n' % (now(), ex.message))
-      GPIO.output((pin1,led), GPIO.LOW)
-      GPIO.output((pin2,led), GPIO.LOW)
+      GPIO.output(led, GPIO.LOW)
+      GPIO.output((pin1,pin2), GPIO.LOW)
 
 # Main method
 #   1.  Reads config file
@@ -227,6 +230,9 @@ def init():
     GPIO.setup((pin2, led), GPIO.OUT)
     GPIO.output((pin1,led), GPIO.LOW)
     GPIO.output((pin2,led), GPIO.LOW)
+    #GPIO.output(led, GPIO.HIGH)
+    #sleep(15)
+    #GPIO.output(led, GPIO.LOW)
     
 if __name__ == "__main__":
   if len(sys.argv) == 1:
