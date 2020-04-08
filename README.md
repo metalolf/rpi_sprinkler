@@ -4,16 +4,29 @@ Code to go along with the [Raspberry Pi Controlled Irrigation System](http://www
 
 This code contains the script "run_sprinkler.py" which automatically runs an outside sprinkler 
 on a fixed schedule using a crontab.  The sprinkler will only run if there has been little to 
-no rain in the past 24 hours.  The script uses the Weather Underground API to estimate recent rainfall
+no rain in the past 24 hours.  The script uses a API to estimate recent rainfall.
+
+## The -UNDER CONTRUCTION - Part
+
+Several further thing to add here for the future:
+1. More valve control (it might be necessary to run valves (or group of valves) in sequences due to water limitations etc.)
+1. I would like to add some hardware switches to start/stop the drainage if necessary
+1. Add Apple-Home-Kit Bridge (obviously!)
 
 ## Requirements
 
-This project requires a free developer API key to Weather Underground.  Go here to register for one:
+This project requires a free API key from OpemWeatherMap.  Go here to register for one:
 
-https://www.wunderground.com/weather/api/d/pricing.html
+https://openweathermap.org/
 
-Select the "Anvil" plan so you gain access to the most features.  This process should give you an API key that looks
-something like a string of numbers and letters, e.g. 3d42bd4e2f42a2eb.
+This process should give you an API key that looks something like a string of numbers and letters, e.g. 3d42bd4e2f42a2eb.
+
+Be patient, the process of registration til receiving the API Key took several minutes (almost an hour for me :sic!: ).
+It might also be interesting to create different keys for different usecases.
+
+**API-Documentation** can be found here:
+
+https://openweathermap.org/api/hourly-forecast
 
 You'll also need the requests python module. These commands will get everything you'll need:   
 ```
